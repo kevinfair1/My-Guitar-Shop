@@ -29,21 +29,31 @@ To be deposited in Second DropBox
 
 Create a shipping department.
 Put an application together that will:
- Screen shows all orders that have been shipped. 30 percent
- Screen shows all orders that have not been shipped. 30 percent
-o Allow selection of an order to ship from this list 20 percent
-o Print out shipping document to include: 20 percent
- Order number, Customer, Ship to, all items and quantities
+1. Screen shows all orders that have been shipped. 30 percent
+
+2. Screen shows all orders that have not been shipped. 30 percent
+
+3. Allow selection of an order to ship from this list 20 percent
+
+4. Print out shipping document to include: 20 percent
+
+--- Order number, Customer, Ship to, all items and quantities
+
 EXTRA CREDIT 5 points to final grade
 To be deposited in Extra credit DropBox
 2 points of the 5
+
 Keep track of inventory –
+
 We need actual inventory and we also need to know pending shipments (customer has paid but item
 has not been shipped) . A message needs to be sent to the order screen if a customer is ordering a
 quantity of an item that will bring the inventory below zero. This includes the pending shipments.
 A shipped item from the Second Part will deplete the actual inventory and pending orders. A successful
 payment from the first part will increase the pending orders.
+
 3 points of the 5
+
 Put this application on a web server other than the local server
+
 Something to think about
 To finish the cycle - You may want to think about ordering the product and increasing inventory levels.
