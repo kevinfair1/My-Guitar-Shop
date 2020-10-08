@@ -1,4 +1,4 @@
-Ch24_guitar_shop project
+#Ch24_guitar_shop project
 ch24_guitar_shop is a multi person project.
 Project consists of two parts and extra credit
 FIRST PART
@@ -20,7 +20,10 @@ contain the inventory.
 on order 20 percent.
 4. ** NOTE ** if you elect to do the EXTRA CREDIT, this may impact the way you handle inventory.
 5. Use of Version Control 10 percent (GIThub as example)
-Second Part
+
+
+#Second Part
+
 To be deposited in Second DropBox
 Create a shipping department.
 Put an application together that will:
