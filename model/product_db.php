@@ -62,14 +62,14 @@ function get_product_order_count($product_id) {
 }
 
 function add_product($category_id, $code, $name, $description,
-        $price, $discount_percent) {
+        $price, $discount_percent, $inventory_count) {
     global $db;
     $query = 'INSERT INTO products
                  (categoryID, productCode, productName, description, listPrice,
-                  discountPercent, dateAdded)
+                  discountPercent, dateAdded, inventoryCount)
               VALUES
                  (:category_id, :code, :name, :description, :price,
-                  :discount_percent, NOW())';
+                  :discount_percent, NOW(), :inventory_count)';
     try {
         $statement = $db->prepare($query);
         $statement->bindValue(':category_id', $category_id);
@@ -78,6 +78,7 @@ function add_product($category_id, $code, $name, $description,
         $statement->bindValue(':description', $description);
         $statement->bindValue(':price', $price);
         $statement->bindValue(':discount_percent', $discount_percent);
+        $statement->bindValue(':inventory_count', $inventory_count);
         $statement->execute();
         $statement->closeCursor();
 
@@ -91,7 +92,7 @@ function add_product($category_id, $code, $name, $description,
 }
 
 function update_product($product_id, $code, $name, $desc,
-                        $price, $discount, $category_id) {
+                        $price, $discount, $category_id, $inventory_count) {
     global $db;
     $query = '
         UPDATE Products
@@ -100,7 +101,8 @@ function update_product($product_id, $code, $name, $desc,
             description = :desc,
             listPrice = :price,
             discountPercent = :discount,
-            categoryID = :category_id
+            categoryID = :category_id,
+            inventoryCount = :inventory_count
         WHERE productID = :product_id';
     try {
         $statement = $db->prepare($query);
@@ -111,6 +113,7 @@ function update_product($product_id, $code, $name, $desc,
         $statement->bindValue(':discount', $discount);
         $statement->bindValue(':category_id', $category_id);
         $statement->bindValue(':product_id', $product_id);
+        $statement->bindValue(':inventory_count', $inventory_count);
         $statement->execute();
         $statement->closeCursor();
     } catch (PDOException $e) {

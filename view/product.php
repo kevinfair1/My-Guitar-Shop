@@ -6,6 +6,7 @@
     $description = $product['description'];
     $list_price = $product['listPrice'];
     $discount_percent = $product['discountPercent'];
+    $inventory_count = $product['inventoryCount'];
 
     // Add HMTL tags to the description
     $description_with_tags = add_tags($description);
@@ -39,6 +40,8 @@
         <?php echo '$' . $unit_price_f; ?>
         (You save
         <?php echo '$' . $discount_amount_f; ?>)</p>
+    <p><b>Current Stock:</b>
+        <?php echo $inventory_count; ?></p>
     <form action="<?php echo $app_path . 'cart' ?>" method="get" 
           id="add_to_cart_form">
         <input type="hidden" name="action" value="add" />
