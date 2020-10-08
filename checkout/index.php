@@ -112,7 +112,7 @@ switch ($action) {
             $quantity = $item['quantity'];            
             add_order_item($order_id, $product_id,
                            $item_price, $discount, $quantity);
-            
+    //for loop to run the remove function as many times as needed based on quantity ordered.
             for ($i = 0; $i < $quantity; $i++)
             {            
             remove_inventory($product_id);
