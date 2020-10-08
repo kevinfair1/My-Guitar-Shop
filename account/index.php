@@ -241,37 +241,30 @@ switch ($action) {
         $order_date = strtotime($order['orderDate']);
         $order_date = date('M j, Y', $order_date);
         $order_items = get_order_items($order_id);
+        $item_name = get_product('productName');
+        
 
         $shipping_address = get_address($order['shipAddressID']);
         $billing_address = get_address($order['billingAddressID']);
         
- //----------------------------------------------------------------------------------------------------------------
+ //-----------------------PHP Mailer----------------------------------------------------
         
                set_time_limit(0);
 
 
-$messageHTML = '<html>
-<head>
-<title><?echo $product?></title>
-</head>
-<body>
-<p>Hi</p><br> 
-We are have our Grand Opening <br> 
-You are invited <br> 
-<a href="http://www.indeed.com/viewjob?jk=c86f8129249f8304&q=c%23&l=Augusta,GA&tk=18899c2de06ag7tq&from=ja&alid=775532c681841a1c&utm_source=jobseeker_emails&utm_medium=email&utm_campaign=job_alerts">Important stuff</a><br><br> 
-</body>
-</html>';
+$messageHTML = '';
 
-$message =  ' This is information that will not be HTML friendly for Emails that do not support HTML';
- 
+$message =  '';
+
+//This calls a seperate php page to format the e-mail to send to the customer and stores it in $body
+ob_start();
+require('./email_body.php');
+$body = ob_get_contents();
+ob_end_clean();
 
 $email = new PHPMailer();
 
 $email->IsSMTP();
-
-// The XXXXXXXX in the following will need to be adjusted as with Host if not using gmail
-// $email->IsSendmail();
-//$email->Mailer = "smtp";
 $email->Host       = "smtp.gmail.com";   //Will need to be modified
 $email->SMTPAuth   = true;  
 //$email->Port       = 465;                // The PORTS will vary
@@ -287,35 +280,24 @@ $email->SingleTo  = true;	// true allows that only one person will receive an em
 $email->From      = 'guitarshopATC@gmail.com'; //Will need to be modified – identifies email of sender
 $email->FromName  = 'My Guitar Shop'; //Will need to be modified – identifies email of sender
 $email->Subject   = 'Purchases from Guitar Shop PHP Class'; // appears in subject of email
-$email->Body      = 
-'<h1> Thank you for ordering from My Guitar Shop!</h1>'
-. '<b>You have completed a successful order!</b></br>'
-.'Name: '.$order_id.'</br>'
-.'Surname: '.$order_date.'</br>'
+$email->Body      = $body;
+
 ;
 
-// the body will interpret HTML - $messageHTML identified above
 $email->AltBody = $message;            // the AltBody will not interpret HTML - $message identified above
 $destination_email_address = $_SESSION['user']['emailAddress']; // Destination address
 $destination_user_name = $_SESSION['user']['firstName'] . ' ' .
                          $_SESSION['user']['lastName'];; // Destination name
 
-// $email->AddAddress( 'xxxx@xxxx.xxx' );
-
-//$file_to_attach = 'images.pdf';  // Used if you want attachments to email - This is the name of your attachment file.
-                                 // File has to be located in same folder as index.php
-//$email->AddAttachment( $file_to_attach ); // Used if you want attachments to email
-
-       //$email->AddAddress($this->$destination_email_address, $destination_user_name); 
-       $email->AddAddress($destination_email_address, $destination_user_name);
-	// AddAddress method identifies destination and sends email	
+ 
+       $email->AddAddress($destination_email_address, $destination_user_name);		
          if(!$email->Send()) {
          echo "Mailer Error: " . $email->ErrorInfo;
           } else {
-           echo "Message sent!";
+           echo "\nOrder Complete! Confirmation e-mail sent.";
           }
   
-//-------------------------------------------------------------------------------------------------------------------------------------------------
+//----------------------------PHP Mailer END-----------------------------------------------------------------
         
         include 'account_view_order.php';
         break;

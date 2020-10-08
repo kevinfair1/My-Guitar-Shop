@@ -88,6 +88,13 @@ br {
 table {
     border-collapse: collapse;
 }
+
+#table-email {
+    border: 1px solid black;
+    padding: 20px;
+    
+}
+
 td, th {
     margin: 0;
     padding: .25em;
