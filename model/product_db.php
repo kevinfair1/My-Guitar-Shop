@@ -122,6 +122,7 @@ function update_product($product_id, $code, $name, $desc,
     }
 }
 
+
 function delete_product($product_id) {
     global $db;
     $query = 'DELETE FROM products WHERE productID = :product_id';
@@ -130,6 +131,20 @@ function delete_product($product_id) {
         $statement->bindValue(':product_id', $product_id);
         $statement->execute();
         $statement->closeCursor();
+    } catch (PDOException $e) {
+        $error_message = $e->getMessage();
+        display_db_error($error_message);
+    }
+}
+
+function remove_inventory($product_id) {
+    global $db;    
+    $query = 'UPDATE products SET inventoryCount = inventoryCount -1 WHERE productID = :product_id';    
+    try {
+        $statement = $db->prepare($query);
+        $statement->bindValue(':product_id', $product_id);        
+        $statement->execute();                
+        $statement->closeCursor();        
     } catch (PDOException $e) {
         $error_message = $e->getMessage();
         display_db_error($error_message);

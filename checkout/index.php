@@ -61,6 +61,7 @@ switch ($action) {
         $card_number = filter_input(INPUT_POST, 'card_number');
         $card_cvv = filter_input(INPUT_POST, 'card_cvv');
         $card_expires = filter_input(INPUT_POST, 'card_expires');
+        
 
         $billing_address = get_address($_SESSION['user']['billingAddressID']);
 
@@ -108,9 +109,14 @@ switch ($action) {
         foreach($cart as $product_id => $item) {
             $item_price = $item['list_price'];
             $discount = $item['discount_amount'];
-            $quantity = $item['quantity'];
+            $quantity = $item['quantity'];            
             add_order_item($order_id, $product_id,
                            $item_price, $discount, $quantity);
+            
+            for ($i = 0; $i < $quantity; $i++)
+            {            
+            remove_inventory($product_id);
+            }
         }
         clear_cart();
         redirect('../account?action=view_order&order_id=' . $order_id);

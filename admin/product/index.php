@@ -107,7 +107,7 @@ switch ($action) {
         } else {
             $categories = get_categories();
             update_product($product_id, $code, $name, $description,
-                           $price, $discount_percent, $category_id);
+                           $price, $discount_percent, $category_id, $inventory_count);
             $product = get_product($product_id);
             include('product_view.php');
         }
