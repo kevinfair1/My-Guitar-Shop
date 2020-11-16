@@ -1,5 +1,9 @@
 <?php
+session_start();
 require_once('../../util/main.php');
+//require_once('util/secure_conn.php');
+//require_once('util/valid_admin.php');
+
 require_once('model/customer_db.php');
 require_once('model/address_db.php');
 require_once('model/order_db.php');
@@ -9,14 +13,17 @@ $action = filter_input(INPUT_POST, 'action');
 if ($action == NULL) {
     $action = filter_input(INPUT_GET, 'action');
     if ($action == NULL) {        
-        $action = 'view_orders';
+        $action = 'view_new_orders';
     }
 }
 
 switch($action) {
-    case 'view_orders':
-        $new_orders = get_unfilled_orders();
-        $old_orders = get_filled_orders();
+    case 'view_new_orders':
+        $orders = get_unfilled_orders();
+        include 'orders.php';
+        break;
+    case 'view_old_orders':
+        $orders = get_filled_orders();
         include 'orders.php';
         break;
     case 'view_order':
