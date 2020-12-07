@@ -30,7 +30,7 @@ aside {
 }
 section {
     float: left;
-    width: 500px;
+    width: 600px;
 }
 footer {
     clear: both;
@@ -98,6 +98,7 @@ table {
 td, th {
     margin: 0;
     padding: .25em;
+    border: 1px solid black;    
 }
 form {
 

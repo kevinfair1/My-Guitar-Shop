@@ -10,6 +10,7 @@
     <p><a href="category">Category Manager</a></p>
     <p><a href="orders">Order Manager</a></p>
     <p><a href="account">Account Manager</a></p>
+    <p><a href="shipping">Shipping Department</a></p>
 </main>
 
 <?php include 'view/footer.php'; ?>
